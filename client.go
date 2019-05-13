@@ -13,7 +13,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/influxdata/influxdb-client-go/internal/gzip"
+	"github.com/rigoiot/influxdb-client-go/internal/gzip"
 )
 
 const defaultMaxWait = 10 * time.Second

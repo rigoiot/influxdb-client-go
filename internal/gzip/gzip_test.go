@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	gzip "github.com/influxdata/influxdb-client-go/internal/gzip"
+	gzip "github.com/rigoiot/influxdb-client-go/internal/gzip"
 )
 
 func TestGzip(t *testing.T) {
