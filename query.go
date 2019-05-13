@@ -25,7 +25,11 @@ func (c *Client) QueryCSV(ctx context.Context, flux string, org string) (*QueryC
 	}
 	req = req.WithContext(ctx)
 	req.Header.Set("User-Agent", c.userAgent)
-	req.Header.Set("Authorization", c.authorization)
+	if c.authorization != "" {
+		req.Header.Set("Authorization", c.authorization)
+	} else if c.username != "" && c.password != "" {
+		req.SetBasicAuth(c.username, c.password)
+	}
 	req.Header.Set("Content-Type", "application/vnd.flux")
 	resp, err := c.httpClient.Do(req)
 	// this is so we can unset the defer later if we don't error.
@@ -64,7 +68,9 @@ func (c *Client) makeQueryURL(org string) (string, error) {
 	qu.Path = path.Join(qu.Path, "query")
 
 	params := qu.Query()
-	params.Set("org", org)
+	if org != "" {
+		params.Set("org", org)
+	}
 	qu.RawQuery = params.Encode()
 	return qu.String(), nil
 }
